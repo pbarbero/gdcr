@@ -1,0 +1,23 @@
+﻿@using GameOfLife.Library;
+@model Dictionary<int, List<Cell>>
+
+@{
+    ViewData["Title"] = "Game of life";
+}
+
+@foreach(var keyValue in Model)
+{
+    foreach(var cell in Model[keyValue.Key])
+    {
+        if(cell.IsAlive)
+        {
+            <div>Alive</div>
+        }
+        else
+        {
+            <div>Not alive</div>
+        }
+    }
+}
+
+<div>fuck</div>

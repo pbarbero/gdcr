@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\GameOfLife\GameOfLife.Library\GameOfLife.Library.csproj" />
+  </ItemGroup>
+
 </Project>
