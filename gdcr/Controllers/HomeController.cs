@@ -11,6 +11,8 @@ namespace gdcr.Controllers
 {
     public class HomeController : Controller
     {
+        private Grid Grid { get; set; }
+
         public IActionResult Index()
         {
             return View();
@@ -20,9 +22,17 @@ namespace gdcr.Controllers
         {
             ViewData["Message"] = "Your application description page.";
 
-            var result = PlayGame();
+            var grid = PlayGame();
 
-            return View(result);
+            return View(grid);
+        }
+
+        [HttpPost]
+        public JsonResult NextIteration()
+        {
+            Grid.NextIteration();
+
+            return Json(Grid);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -31,19 +41,13 @@ namespace gdcr.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        private Dictionary<int, List<Cell>> PlayGame()
+        private Grid PlayGame()
         {
             var result = new Dictionary<int, List<Cell>>();
-            var grid = new Grid(100, 100);
-            grid.SetCenterSeed(10, 100, 100);
+            var grid = new Grid(10, 20);
+            grid.SetCenterSeed(20);
 
-            for (int i = 0; i < 2; i++)
-            {
-                grid.NextIteration();
-                result.Add(i, grid.Cells);
-            }
-
-            return result;
+            return grid;
         }
     }
 }
